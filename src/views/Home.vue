@@ -8,55 +8,18 @@
       <el-button type="primary" @click="filterPackage(1)" plain>已预约</el-button>
       <el-button type="primary" @click="filterPackage(2)" plain>已取件</el-button>
       <el-button type="primary" @click="filterPackage(0)" plain>未预约</el-button>
-      <el-button type="primary" plain @click="dialogFormVisible = true">+添加</el-button>
-      <el-dialog title="包裹入库" :visible.sync="dialogFormVisible">
-        <el-form :model="form">
-          <el-form-item label="订单号" :label-width="formLabelWidth">
-            <el-input v-model="form.id" type="number" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="收件人" :label-width="formLabelWidth">
-            <el-input v-model="form.username" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="电话" :label-width="formLabelWidth">
-            <el-input v-model="form.iphoneNumber" autocomplete="off"></el-input>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="addPackage">确 定</el-button>
-        </div>
-      </el-dialog>
+      <AddDialog></AddDialog>
     </el-header>
-    <el-main>
-      <el-table :data="this.$store.state.packages">
-        <el-table-column prop="id" label="运单号" width="140">
-        </el-table-column>
-        <el-table-column prop="username" label="收件人" width="120">
-        </el-table-column>
-        <el-table-column prop="iphoneNumber" label="电话" width="140"></el-table-column>
-        <el-table-column prop="state" label="状态" width="140">
-          <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.state===0?'未预约':scope.row.state===1?'已预约':'已取件'}}</span>
-          </template>
-
-        </el-table-column>
-        <el-table-column prop="bookingTime" label="预约时间" width="140"></el-table-column>
-        <el-table-column label="">
-          <template slot-scope="scope">
-            <el-button type="primary" v-if="scope.row.state!==2" @click="confirmReceipt(scope.row)" plain>确认收货
-            </el-button>
-          </template>
-        </el-table-column>
-
-      </el-table>
-    </el-main>
+    <PackageTable></PackageTable>
   </el-container>
 </template>
 
 <script>
+  import AddDialog from '../components/AddDialog'
+  import PackageTable from '../components/PackageTable'
   export default {
     name: 'home',
-    components: {},
+    components: {AddDialog,PackageTable},
     data: function () {
       return {
         dialogFormVisible: false,
@@ -75,15 +38,6 @@
         } else {
           this.$store.dispatch('getAllPackageInformation')
         }
-      },
-      confirmReceipt: function (item) {
-        item.state = 2
-        this.$store.dispatch('updatePackage', item)
-      },
-      addPackage: function () {
-        this.dialogFormVisible = false
-        this.form.state = 0;
-        this.$store.dispatch('addPackage',this.form)
       },
       gotoBookingPackage: function () {
         this.$router.push({path:'/about'})
