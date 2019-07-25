@@ -1,30 +1,21 @@
 <template>
-  <el-container>
-    <el-header>
-      <ButtonGroup/>
-    </el-header>
-    <PackageTable></PackageTable>
-  </el-container>
+    <div>
+      <el-tag type="success" style="width: 100px;height: 35px;float: left;margin: 10px;">菜鸟驿站
+      </el-tag>
+      <el-button type="success" @click="gotoBookingPackage" style="float: right;margin: 10px" plain>Customer</el-button>
+      <el-button type="primary" @click="filterPackage()" plain>All</el-button>
+      <el-button type="primary" @click="filterPackage(1)" plain>已预约</el-button>
+      <el-button type="primary" @click="filterPackage(2)" plain>已取件</el-button>
+      <el-button type="primary" @click="filterPackage(0)" plain>未预约</el-button>
+      <AddDialog></AddDialog>
+    </div>
 </template>
 
 <script>
   import AddDialog from '../components/AddDialog'
-  import PackageTable from '../components/PackageTable'
-  import ButtonGroup from '../components/ButtonGroup'
   export default {
-    name: 'home',
-    components: {AddDialog,PackageTable,ButtonGroup},
-    data: function () {
-      return {
-        dialogFormVisible: false,
-        form: {
-          username: '',
-          id: '',
-          iphoneNumber: '',
-        },
-        formLabelWidth: '80px'
-      }
-    },
+    name: 'ButtonGroup',
+    components:{AddDialog},
     methods: {
       filterPackage: function (state) {
         if (state !== undefined) {
@@ -36,9 +27,6 @@
       gotoBookingPackage: function () {
         this.$router.push({path:'/about'})
       }
-    },
-    mounted() {
-      this.$store.dispatch('getAllPackageInformation')
     }
   }
 </script>
