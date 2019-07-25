@@ -24,7 +24,7 @@
 </template>
 <script>
   export default {
-    name: 'about',
+    name: 'booking',
     components: {},
     data: function () {
       return {

@@ -34,7 +34,7 @@
         }
       },
       gotoBookingPackage: function () {
-        this.$router.push({path:'/about'})
+        this.$router.push({path:'/booking'})
       }
     },
     mounted() {
