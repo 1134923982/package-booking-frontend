@@ -31,6 +31,8 @@ export default new Vuex.Store({
     getAllPackageInformation: function ({commit}) {
       axios.get('/package-informations').then(function (reponse) {
         commit("getAllPackageInformation", reponse.data)
+      }).catch(function (error) {
+        
       })
     },
     getPackagesByName: function ({commit}, state) {
@@ -38,18 +40,24 @@ export default new Vuex.Store({
         function (reponse) {
           commit('getPackagesByName', reponse.data)
         }
-      )
+      ).catch(function (error) {
+        
+      })
     },
     updatePackage: function ({commit}, item) {
       axios.put('/package-informations/' + item.id, item).then(function (reponse) {
         commit('updatePackage', reponse.data)
+      }).catch(function (error) {
+        
       })
     },
     addPackage: function ({commit}, item) {
       axios.post('/package-informations', item).then(function (reponse) {
           commit('addPackage',reponse.data)
         }
-      )
+      ).catch(function (error) {
+        
+      })
     }
   }
 })
