@@ -15,7 +15,6 @@
             default-time="12:00:00">
           </el-date-picker>
         </div>
-<!--        <el-input v-model="form.bookingTime"></el-input>-->
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="booking">立即预约</el-button>
